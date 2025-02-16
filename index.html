@@ -1,28 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>House Price Prediction</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>House Price Predictor</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
-<body>
-    <h2>House Price Prediction</h2>
-    <form action="/predict" method="post">
-        <label>Feature 1:</label>
-        <input type="text" name="feature1" required>
-        <label>Feature 2:</label>
-        <input type="text" name="feature2" required>
-        <button type="submit">Predict</button>
+<body class="container mt-5">
+    <h2 class="text-center">House Price Prediction</h2>
+    <form action="/predict" method="post" class="mt-4">
+        <div class="mb-3">
+            <label>Enter Features (comma-separated)</label>
+            <input type="text" name="features" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Predict</button>
     </form>
-    <h3 id="result"></h3>
-
-    <script>
-        document.querySelector("form").onsubmit = async function(event) {
-            event.preventDefault();
-            let formData = new FormData(this);
-            let response = await fetch("/predict", { method: "POST", body: formData });
-            let data = await response.json();
-            document.getElementById("result").innerText = data.predicted_price ? "Predicted Price: $" + data.predicted_price : "Error: " + data.error;
-        };
-    </script>
 </body>
 </html>
+
