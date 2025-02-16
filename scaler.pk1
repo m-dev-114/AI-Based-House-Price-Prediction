@@ -6,22 +6,22 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 import joblib
 
-# Load dataset (Replace 'house_prices.csv' with your actual dataset)
+# Load dataset (Ensure 'house_prices.csv' exists)
 df = pd.read_csv("house_prices.csv")
 
-# Features and Target
-X = df.drop(columns=["price"])  # Adjust according to your dataset
+# Split Features and Target
+X = df.drop(columns=["price"])
 y = df["price"]
 
-# Split Data
+# Train-Test Split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Feature Scaling
+# Scaling Features
 scaler = StandardScaler()
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
 
-# Define Neural Network Model
+# Define Model
 model = keras.Sequential([
     keras.layers.Dense(64, activation='relu', input_shape=(X_train.shape[1],)),
     keras.layers.Dense(32, activation='relu'),
@@ -33,10 +33,8 @@ model.compile(optimizer='adam', loss='mse', metrics=['mae'])
 # Train Model
 model.fit(X_train, y_train, epochs=100, validation_data=(X_test, y_test))
 
-# Save Model
+# Save Model and Scaler
 model.save("house_price_model.h5")
-print("✅ house_price_model.h5 saved!")
-
-# Save Scaler
 joblib.dump(scaler, "scaler.pkl")
-print("✅ scaler.pkl saved!")
+
+print("✅ Model and scaler saved successfully!")
