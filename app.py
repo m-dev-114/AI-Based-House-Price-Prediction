@@ -42,6 +42,3 @@ def predict():
         return jsonify({'predicted_price': prediction[0][0]})
     except Exception as e:
         return jsonify({'error': str(e)})
-
-if __name__ == '__main__':
-    app.run(debug=True)
